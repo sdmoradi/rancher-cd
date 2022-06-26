@@ -1,0 +1,13 @@
+version: 2.1
+jobs:
+ build:
+   machine: true
+   steps:
+     - checkout
+     - run: |
+         echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+     - run: 
+            name: docker image build 
+            command: docker build -t bengotch/simplewhale:$CIRCLE_BRANCH .
+    - run: docker push bengotch/simplewhale:$CIRCLE_BRANCH
+            
